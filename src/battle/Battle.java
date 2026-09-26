@@ -11,13 +11,74 @@ import skins.Pyro;
 
 public class Battle {
 
+    public static void standartBattle(Scanner sc){
+        int codigo;
+        System.out.print("[DRAGON 1] - Type your nick: ");
+        String nick1 = sc.nextLine();
+        System.out.println("[DRAGON 1] - " + nick1);
+        Battle.dragonMenu();
+        codigo = sc.nextInt();
+        Dragons dragon1 = Battle.chooseDragon(codigo);
+
+        Battle.skinMenu();
+        codigo = sc.nextInt();
+        Battle.switchSkin(dragon1, codigo);
+
+        sc.nextLine();
+        System.out.print("\n[DRAGON 2] - Type your nick: ");
+        String nick2 = sc.nextLine();
+        System.out.println("[DRAGON 2] - " + nick2);
+        Battle.dragonMenu();
+        codigo = sc.nextInt();
+        Dragons dragon2 = Battle.chooseDragon(codigo);
+
+        Battle.skinMenu();
+        codigo = sc.nextInt();
+        Battle.switchSkin(dragon2, codigo);
+
+        Dragons dragonTurn = dragon1;
+        Dragons enemyDragon = null;
+        int i = 1;
+
+
+        while (Battle.validateBattle(dragon1) && Battle.validateBattle(dragon2)) {
+            System.out.println("\n[BATTLE] <ROUND " + i + "> (" + dragonTurn.getName() +
+                    " " + dragonTurn.getSkin().getName() + ")");
+            enemyDragon = Battle.switchEnemy(dragonTurn, dragon1, dragon2);
+            Battle.attacksMenu();
+            int attack = sc.nextInt();
+            Battle.switchAttack(attack, dragonTurn, enemyDragon);
+            dragonTurn = Battle.switchTurn(dragonTurn, dragon1, dragon2);
+            i++;
+        }
+
+        if (Battle.winner(dragon1, dragon2) == 1) {
+            System.out.println("\n"+ nick1 + " WINS w/ " + dragon1.getName() + " " + dragon1.getSkin().getName());
+        } else if (Battle.winner(dragon1, dragon2) == 2) {
+            System.out.println("\n"+ nick2 + " WINS w/ " + dragon2.getName() + " " + dragon2.getSkin().getName());
+        } else {
+            System.out.println("Error");
+        }
+        sc.close();
+    }
+
     public static boolean validateBattle(Dragons dragon) {
         return dragon.getLife() > 0 || dragon.getSpeed() > 0;
     }
 
-    public static void attacksMenu() {
+    public static int winner(Dragons dragon1, Dragons dragon2) {
+        if (dragon1.getLife() == 0 && dragon1.getSpeed() ==0) {
+            return 2;
+        }
 
-        System.out.println();
+        if (dragon2.getLife() == 0 && dragon2.getLife() == 0) {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    public static void attacksMenu() {
         System.out.println("╔══════════════════════════════════════════════════╗");
         System.out.println("║                    ATTACKS                       ║");
         System.out.println("╠══════════════════════════════════════════════════╣");
@@ -35,7 +96,8 @@ public class Battle {
     public static void attackMessage(Dragons dragonTurn, Dragons enemyDragon, Attack attacker) {
 
         System.out.println(
-                dragonTurn.getName() + " attacked " +
+                dragonTurn.getName() + " " +
+                        dragonTurn.getSkin().getName() + " attacked " +
                         enemyDragon.getName() + " " +
                         enemyDragon.getSkin().getName() +
                         " with " + attacker.getName() +
@@ -44,6 +106,7 @@ public class Battle {
                         "\nSpeed: " + enemyDragon.getSpeed()
         );
     }
+
     public static void boltAttack(Dragons dragonTurn, Dragons enemyDragon) {
 
         Attack attacker = new Bolt(dragonTurn);
@@ -84,7 +147,7 @@ public class Battle {
         attackMessage(dragonTurn, enemyDragon, attacker);
     }
 
-    public static void switchAttack(int attack, Dragons dragonTurn, Dragons enemyDragon){
+    public static void switchAttack(int attack, Dragons dragonTurn, Dragons enemyDragon) {
         switch (attack) {
             case 1:
                 Battle.boltAttack(dragonTurn, enemyDragon);
@@ -121,8 +184,7 @@ public class Battle {
         }
     }
 
-    public  static void skinMenu(){
-        System.out.println();
+    public static void skinMenu() {
         System.out.println("╔══════════════════════════════════════╗");
         System.out.println("║              SKINS                   ║");
         System.out.println("╠══════════════════════════════════════╣");
@@ -154,8 +216,7 @@ public class Battle {
         }
     }
 
-    public static void dragonMenu(){
-        System.out.println();
+    public static void dragonMenu() {
         System.out.println("╔══════════════════════════════════════╗");
         System.out.println("║              DRAGONS                 ║");
         System.out.println("╠══════════════════════════════════════╣");
