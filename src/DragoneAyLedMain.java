@@ -9,8 +9,7 @@ import java.util.Scanner;
 public class DragoneAyLedMain {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("MAIN INICIO");
-        Battle.standartBattle();
+        Battle.start(sc);
     }
 }
 
