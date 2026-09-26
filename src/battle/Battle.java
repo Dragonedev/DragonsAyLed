@@ -23,7 +23,7 @@ public class Battle {
         Player player1 = Patterns.playersChoose(sc, 1);
 
         sc.nextLine();
-
+        System.out.println();
         Player player2 = Patterns.playersChoose(sc, 2);
 
         Patterns.standartRound(player1.getDragon(), player2.getDragon(), sc);

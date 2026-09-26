@@ -8,13 +8,13 @@ import skins.Pyro;
 public class SkinMenu {
 
     public static void show() {
-        System.out.println("╔══════════════════════════════════════╗");
-        System.out.println("║              SKINS                   ║");
-        System.out.println("╠══════════════════════════════════════╣");
-        System.out.println("║ [1] Pyro                             ║");
-        System.out.println("║ [2] Aether                           ║");
-        System.out.println("║ [3] Cryon                            ║");
-        System.out.println("╚══════════════════════════════════════╝");
+        System.out.println("╔════════════════════════════════════════════╗");
+        System.out.println("║                    SKINS                   ║");
+        System.out.println("╠════════════════════════════════════════════╣");
+        System.out.println("║ [1] Pyro          Color: Red               ║");
+        System.out.println("║ [2] Aether        Color: White             ║");
+        System.out.println("║ [3] Cryon         Color: Dark Purple       ║");
+        System.out.println("╚════════════════════════════════════════════╝");
 
         System.out.print("Choose your skin: ");
     }
